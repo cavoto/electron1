@@ -1,0 +1,84 @@
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="initial-scale=1" />
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0-rc1/angular-material.min.css">
+    <!--    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0-rc4/angular-material.min.css">-->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body layout="column" ng-app="StarterApp" ng-controller="AppController as controller">
+    <md-toolbar layout="row">
+        <div class="md-toolbar-tools">
+            <md-button ng-click="controller.toggleSidenav('left')" hide-gt-sm class="md-icon-button">
+                <md-icon aria-label="Menu">
+                    <i class="fa fa-bars" style="font-size:24px;"></i>
+                </md-icon>
+            </md-button>
+            <h1> Photo chooser <i class="fa fa-500px"></i></h1>
+        </div>
+    </md-toolbar>
+    <div layout="row" flex>
+        <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-4dp" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+            <!--            <md-button ng-show="controller.basepath === ''" class="md-primary md-raised" ng-click="controller.openFolder();">Open folder</md-button>-->
+            <md-button class="md-primary md-raised" ng-click="controller.openFolder();">Open folder</md-button>
+
+            <md-content>
+                <md-list>
+                    <md-list-item class="md-3-line" ng-repeat="filter in controller.filters" id="{{$index}}">
+                        <div class="md-list-item-text">
+                            <h3>filter{{$index}}</h3>
+                            <h4>{{item.who}}</h4>
+                            <p>{{item.notes}}</p>
+                        </div>
+                        <md-button class="md-secondary" ng-click="controller.showFilter($index)">select</md-button>
+                        <md-divider></md-divider>
+                    </md-list-item>
+                </md-list>
+            </md-content>
+            <div data-ng-if="controller.selection.length > 0">
+                Filtering {{controller.selection.length}}
+                <md-button class="md-icon-button md-primary" aria-label="View" ng-click="controller.showSelection()">
+                    <md-icon class="fa fa-eye"></md-icon>
+                </md-button>
+                <md-button class="md-icon-button" aria-label="Apagar" ng-click="controller.clearSelection()">
+                    <md-icon class="fa fa-trash-o"></md-icon>
+                </md-button>
+                <md-button class="md-icon-button" aria-label="Create filter" ng-click="controller.promoteSelectionToFilter()">
+                    <md-icon class="fa fa-check"></md-icon>
+                </md-button>
+            </div>
+        </md-sidenav>
+        <div layout="column" flex id="content">
+            <md-content layout="column" flex class="md-padding" flex>
+                <div data-ng-repeat="fileName in controller.current" id="{{$index}}">
+                    <md-card class="card" layout="row">
+                        <div flex><img ng-src="{{controller.basepath}}/{{fileName}}"></div>
+                        <div flex="none" layout="column">
+                            <md-button class="md-fab  md-primary" aria-label="Eat cake" ng-click="controller.pickPhoto(fileName,$index)">
+                                <md-icon md-font-icon="fa fa-thumbs-o-up" style="font-size:24px;"></md-icon>
+                            </md-button>
+                            <md-button class="md-fab" aria-label="Eat cake" ng-click="controller.gotoNext($index)">
+                                <md-icon md-font-icon="fa fa-thumbs-o-down" style="font-size:24px;"></md-icon>
+                            </md-button>
+                        </div>
+
+                    </md-card>
+                </div>
+            </md-content>
+        </div>
+    </div>
+    <!-- Angular Material Dependencies -->
+    <script src="../node_modules/angular/angular.min.js"></script>
+    <script src="../node_modules/angular-animate/angular-animate.js"></script>
+    <script src="../node_modules/angular-aria/angular-aria.min.js"></script>
+
+    <script src="../node_modules/angular-material/angular-material.min.js"></script>
+    <!--    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0-rc4/angular-material.min.js"></script>-->
+    <script src="js/lodash.min.js"></script>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
