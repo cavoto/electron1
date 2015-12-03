@@ -3,7 +3,7 @@ var app = angular.module('StarterApp', ['ngMaterial']);
 app.controller('AppController', ['$mdSidenav', '$mdDialog', '$scope', '$location', '$anchorScroll', function ($mdSidenav, $mdDialog, $scope, $location, $anchorScroll) {
     var remote = require('remote');
     var dialog = remote.require('dialog');
-    var fs = require('fs');
+    var fs = require('fs-extra');
     var vm = this;
 
     vm.basepath = "";
@@ -20,6 +20,15 @@ app.controller('AppController', ['$mdSidenav', '$mdDialog', '$scope', '$location
     //var ret = globalShortcut.register('CmdOrCtrl+x', function() { alert('ctrl+x is pressed'); })
     //if (!ret)
     //  console.log('registerion fails');
+
+
+
+    function copyFile(targetFolder, sourceFolder, imageName) {
+        fs.copy(sourceFolder + "/" + imageName, '/Users/cavoto/Desktop/'+targetFolder+"/"+imageName, function (err) {
+                if (err) return console.error(err)
+                console.log("success!")
+            }); // copies file 
+    }
 
 
     vm.toggleSidenav = function (menuId) {
@@ -52,11 +61,19 @@ app.controller('AppController', ['$mdSidenav', '$mdDialog', '$scope', '$location
     vm.showFilter = function (filter) {
         vm.current = vm.filters[filter];
     };
+    vm.exportFilter = function (filter) {
+        var filter = vm.filters[filter];
+        _.forEach(filter, function(image){
+            copyFile("FOLDER", vm.basepath, image);
+        });
+        
+    };
+
+
     vm.showSelection = function (filter) {
         vm.current = vm.selection;
     };
     vm.clearSelection = function () {
-//        vm.current = [];
         vm.selection = [];
     };
 

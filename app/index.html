@@ -29,10 +29,15 @@
                     <md-list-item class="md-3-line" ng-repeat="filter in controller.filters" id="{{$index}}">
                         <div class="md-list-item-text">
                             <h3>filter{{$index}}</h3>
-                            <h4>{{item.who}}</h4>
-                            <p>{{item.notes}}</p>
                         </div>
+                        <md-button class="md-icon-button" aria-label="Apagar" ng-click="controller.deleteFilter($index)" ng-if="$index !== 0">
+                            <md-icon class="fa fa-trash-o"></md-icon>
+                        </md-button>
+                        <md-button class="md-icon-button" aria-label="Exportar" ng-click="controller.exportFilter($index)">
+                            <md-icon class="fa fa-check"></md-icon>
+                        </md-button>
                         <md-button class="md-secondary" ng-click="controller.showFilter($index)">select</md-button>
+
                         <md-divider></md-divider>
                     </md-list-item>
                 </md-list>

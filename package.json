@@ -7,9 +7,8 @@
     "angular-animate": "^1.4.7",
     "angular-aria": "^1.4.7",
     "angular-material": "^0.11.4",
-    "body-parser": "~1.5.2",
-    "express": "~4.7.2",
     "fs": "0.0.2",
+    "fs-extra": "^0.26.2",
     "lodash": "^3.10.1"
   }
 }
